@@ -63,15 +63,13 @@ public class CalculationTest {
             enterOneTimeInvestment("1500");
             enterYears("10");
             enterEmail("info@furbo.sk");
-            Assert.assertFalse(driver
-                .findElement(By.cssSelector("div.result > div:nth-child(1) > p"))
-                .getText()
-                .isEmpty());
-            Assert.assertTrue(driver
-                .findElement(By.cssSelector("div.result > div:nth-child(1) > p"))
-                .getText()
-                .contains("kr"));
+            Assert.assertFalse(getTotalIncome().isEmpty());
+            Assert.assertTrue(getTotalIncome().contains("kr"));
         }
+    }
+
+    private String getTotalIncome() {
+        return driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p")).getText();
     }
 
     private void enterOneTimeInvestment(String amountToEnter) {
