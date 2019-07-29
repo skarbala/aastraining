@@ -22,36 +22,23 @@ public class CalculationTest {
 
     @Test
     public void itShouldCalculateTotalIncome() {
-        //1.vybrat fond, zadat sumu, roky, email
-        //1.vybrat fond
-        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Batman's Cave Development");
-        //2.zadat sumu
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("1500");
-        //3.zadat pocet rokov
-        driver.findElement(By.id("yearsInput")).sendKeys("10");
-        //4.zadat email
-        driver.findElement(By.id("emailInput")).sendKeys("info@furbo.sk");
-        //2.overit ze total income nie je prazdny
+        selectFund("Tom & Jerry corp");
+        enterOneTimeInvestment("3624");
+        enterYears("10");
+        enterEmail("info@furbo.sk");
         Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p")).getText().isEmpty());
         Assert.assertTrue(driver
             .findElement(By.cssSelector("div.result > div:nth-child(1) > p"))
             .getText()
             .contains("kr"));
-
     }
 
     @Test
     public void itShouldCalculateInterestIncome() {
-        //1.vybrat fond, zadat sumu, roky, email
-        //1.vybrat fond
-        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Batman's Cave Development");
-        //2.zadat sumu
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("1500");
-        //3.zadat pocet rokov
-        driver.findElement(By.id("yearsInput")).sendKeys("10");
-        //4.zadat email
-        driver.findElement(By.id("emailInput")).sendKeys("info@furbo.sk");
-        //2.overit ze interest income nie je prazdny
+        selectFund("Tom & Jerry corp");
+        enterOneTimeInvestment("8250");
+        enterYears("10");
+        enterEmail("info@furbo.sk");
         Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText().isEmpty());
         Assert.assertTrue(driver
             .findElement(By.cssSelector("div.result > div:nth-child(2) > p"))
@@ -61,27 +48,57 @@ public class CalculationTest {
 
     @Test
     public void itShouldCalculateRisk() {
-        //1.vybrat fond, zadat sumu, roky, email
-        //1.vybrat fond
-        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Batman's Cave Development");
-        //2.zadat sumu
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("1500");
-        //3.zadat pocet rokov
-        driver.findElement(By.id("yearsInput")).sendKeys("10");
-        //4.zadat email
-        driver.findElement(By.id("emailInput")).sendKeys("info@furbo.sk");
-        //2.overit ze risk nie je prazdny
+        selectFund("Tom & Jerry corp");
+        enterOneTimeInvestment("1500");
+        enterYears("10");
+        enterEmail("info@furbo.sk");
         Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p")).getText().isEmpty());
-        Assert.assertTrue(driver
-            .findElement(By.cssSelector("div.result > div:nth-child(3) > p"))
-            .getText()
-            .contains("kr"));
+    }
+
+    @Test
+    public void itShouldCalculateTotalIncomeForEachFund() {
+        String[] arrayOfFunds = {"Tom & Jerry corp", "Batman's Cave Development", "McDuck's safe"};
+        for (String arrayOfFund : arrayOfFunds) {
+            selectFund(arrayOfFund);
+            enterOneTimeInvestment("1500");
+            enterYears("10");
+            enterEmail("info@furbo.sk");
+            Assert.assertFalse(driver
+                .findElement(By.cssSelector("div.result > div:nth-child(1) > p"))
+                .getText()
+                .isEmpty());
+            Assert.assertTrue(driver
+                .findElement(By.cssSelector("div.result > div:nth-child(1) > p"))
+                .getText()
+                .contains("kr"));
+        }
+    }
+
+    private void enterOneTimeInvestment(String amountToEnter) {
+        driver.findElement(By.id("oneTimeInvestmentInput")).clear();
+        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(amountToEnter);
+    }
+
+    private void selectFund(String fundToBeSelected) {
+        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText(fundToBeSelected);
+    }
+
+
+    private void enterYears(String yearsToEnter) {
+        driver.findElement(By.id("yearsInput")).clear();
+        driver.findElement(By.id("yearsInput")).sendKeys(yearsToEnter);
+
+    }
+
+    private void enterEmail(String emailToEnter) {
+        driver.findElement(By.id("emailInput")).clear();
+        driver.findElement(By.id("emailInput")).sendKeys(emailToEnter);
     }
 
 
     @After
     public void tearDown() {
-        driver.close();
-        driver.quit();
+        //        driver.close();
+        //        driver.quit();
     }
 }
