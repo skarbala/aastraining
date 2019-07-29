@@ -26,11 +26,8 @@ public class CalculationTest {
         enterOneTimeInvestment("3624");
         enterYears("10");
         enterEmail("info@furbo.sk");
-        Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p")).getText().isEmpty());
-        Assert.assertTrue(driver
-            .findElement(By.cssSelector("div.result > div:nth-child(1) > p"))
-            .getText()
-            .contains("kr"));
+        Assert.assertFalse(getTotalIncome().isEmpty());
+        Assert.assertTrue(getTotalIncome().contains("kr"));
     }
 
     @Test
@@ -39,11 +36,8 @@ public class CalculationTest {
         enterOneTimeInvestment("8250");
         enterYears("10");
         enterEmail("info@furbo.sk");
-        Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText().isEmpty());
-        Assert.assertTrue(driver
-            .findElement(By.cssSelector("div.result > div:nth-child(2) > p"))
-            .getText()
-            .contains("kr"));
+        Assert.assertFalse(getInterestIncome().isEmpty());
+        Assert.assertTrue(getInterestIncome().contains("kr"));
     }
 
     @Test
@@ -52,7 +46,7 @@ public class CalculationTest {
         enterOneTimeInvestment("1500");
         enterYears("10");
         enterEmail("info@furbo.sk");
-        Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p")).getText().isEmpty());
+        Assert.assertFalse(getRisk().isEmpty());
     }
 
     @Test
@@ -71,6 +65,15 @@ public class CalculationTest {
     private String getTotalIncome() {
         return driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p")).getText();
     }
+
+    private String getInterestIncome() {
+        return driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText();
+    }
+
+    private String getRisk() {
+        return driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p")).getText();
+    }
+
 
     private void enterOneTimeInvestment(String amountToEnter) {
         driver.findElement(By.id("oneTimeInvestmentInput")).clear();
