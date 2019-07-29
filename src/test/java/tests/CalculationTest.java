@@ -1,24 +1,13 @@
 package tests;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class CalculationTest {
+import base.TestBase;
 
-    WebDriver driver;
-
-    @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get("http://localhost:8888/savingscalculator.php");
-    }
+public class CalculationTest extends TestBase {
 
     @Test
     public void itShouldCalculateTotalIncome() {
@@ -74,7 +63,6 @@ public class CalculationTest {
         return driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p")).getText();
     }
 
-
     private void enterOneTimeInvestment(String amountToEnter) {
         driver.findElement(By.id("oneTimeInvestmentInput")).clear();
         driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(amountToEnter);
@@ -94,12 +82,5 @@ public class CalculationTest {
     private void enterEmail(String emailToEnter) {
         driver.findElement(By.id("emailInput")).clear();
         driver.findElement(By.id("emailInput")).sendKeys(emailToEnter);
-    }
-
-
-    @After
-    public void tearDown() {
-        //        driver.close();
-        //        driver.quit();
     }
 }
