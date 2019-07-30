@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 import base.TestBase;
+import pages.CalculatorPage;
 
 public class SavingsCalculatorTest extends TestBase {
 
@@ -22,13 +23,14 @@ public class SavingsCalculatorTest extends TestBase {
     @Test
     public void itShouldEnableApplyButton() {
         //1.vybrat fond
-        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Batman's Cave Development");
+        CalculatorPage calculatorPage = new CalculatorPage(driver);
+        calculatorPage.selectFund("Tom & Jerry corp");
         //2.zadat sumu
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("1500");
+        calculatorPage.enterOneTimeInvestment("1500");
         //3.zadat pocet rokov
-        driver.findElement(By.id("yearsInput")).sendKeys("10");
+        calculatorPage.enterYears("10");
         //4.zadat email
-        driver.findElement(By.id("emailInput")).sendKeys("info@furbo.sk");
+        calculatorPage.enterEmail("info@furbo.sk");
         //5.overit button
         Assert.assertTrue(driver.findElement(By.cssSelector("button.btn-block")).isEnabled());
     }
