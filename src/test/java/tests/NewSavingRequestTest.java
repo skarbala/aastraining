@@ -19,17 +19,21 @@ public class NewSavingRequestTest extends TestBase {
         //precitat zo stranky total income
         String calculatedIncome = calculatorPage.getTotalIncome();
         //vytvorit novy saving request
-        driver.findElement(By.cssSelector("button.btn-block")).click();
+        calculatorPage.submitRequest();
         //overim ze total income sa zobrazi v requeste
 
         Assert.assertEquals(
             calculatedIncome,
             driver
-                .findElement(By.xpath("//ul[contains(@class,'saving-list')]/li//div[contains(@class,'amounts')" +
-                    "]/p/span"))
+                .findElement(By.xpath("//ul[contains(@class,'saving-list')]/li//div[contains(@class,'amounts')]/p/span"))
                 .getText()
         );
 
+        Assert.assertEquals(
+            calculatedIncome,
+            driver
+                .findElement(By.cssSelector("ul.saving-list > li div.amounts > p > span"))
+                .getText()
+        );
     }
-
 }

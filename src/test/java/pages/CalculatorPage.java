@@ -42,4 +42,8 @@ public class CalculatorPage {
         pageDriver.findElement(By.id("emailInput")).clear();
         pageDriver.findElement(By.id("emailInput")).sendKeys(emailToEnter);
     }
+
+    public void submitRequest(){
+        pageDriver.findElement(By.cssSelector("button.btn-block")).click();
+    }
 }
