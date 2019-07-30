@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import utils.MathUtils;
+
 public class CalculatorPage {
     private WebDriver pageDriver;
 
@@ -52,4 +54,11 @@ public class CalculatorPage {
         return pageDriver.findElement(By.cssSelector("ul.saving-list > li > div.saving-detail"));
     }
 
+    public void selectRandomFund() {
+        int numberOfOptions = new Select(pageDriver.findElement(By.id("fundSelect"))).getOptions().size();
+        new Select(pageDriver.findElement(By.id("fundSelect"))).selectByIndex(MathUtils.getRandomNumberInRange(
+            1,
+            numberOfOptions - 1
+        ));
+    }
 }

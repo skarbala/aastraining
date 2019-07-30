@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import base.TestBase;
 import pages.CalculatorPage;
+import utils.MathUtils;
 
 public class SavingsCalculatorTest extends TestBase {
 
@@ -24,7 +25,7 @@ public class SavingsCalculatorTest extends TestBase {
     public void itShouldEnableApplyButton() {
         //1.vybrat fond
         CalculatorPage calculatorPage = new CalculatorPage(driver);
-        calculatorPage.selectFund("Tom & Jerry corp");
+        calculatorPage.selectRandomFund();
         //2.zadat sumu
         calculatorPage.enterOneTimeInvestment("1500");
         //3.zadat pocet rokov
